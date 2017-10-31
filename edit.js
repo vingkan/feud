@@ -14,7 +14,7 @@ let questionInput = document.getElementById('question');
 let answersInput = document.getElementById('answers');
 
 function showError(error) {
-	alert(error);
+	vex.dialog.alert(error);
 }
 
 function rawToAnswers(raw) {
@@ -39,12 +39,16 @@ function confirmCode(code) {
 		db.ref(`rounds/${code}`).once('value', (snap) => {
 			let val = snap.val();
 			if (val) {
-				let confirm = prompt(`Code ${code} already exists. Do you want to override it? (y)`);
-				if (confirm.toLowerCase() === 'y') {
-					resolve(true);
-				} else {
-					resolve(false);
-				}
+				vex.dialog.confirm({
+					message: `Code ${code} already exists. Do you want to override it?`,
+					callback: (confirm) => {
+						if (confirm) {
+							resolve(true);
+						} else {
+							resolve(false);
+						}
+					}
+				});
 			} else {
 				resolve(true);
 			}
@@ -71,14 +75,18 @@ function getRound(code) {
 
 let load = document.getElementById('load');
 load.addEventListener('click', (e) => {
-	let code = prompt('Enter a round code.');
-	if (code) {
-		getRound(code).then((round) => {
-			codeInput.value = code;
-			questionInput.value = round.question;
-			answersInput.value = answersToRaw(round.answers);
-		}).catch(console.error);
-	}
+	vex.dialog.prompt({
+		message: 'Enter a round code.',
+		callback: (code) => {
+			if (code) {
+				getRound(code).then((round) => {
+					codeInput.value = code;
+					questionInput.value = round.question;
+					answersInput.value = answersToRaw(round.answers);
+				}).catch(console.error);
+			}
+		}
+	});
 });
 
 let button = document.getElementById('save');
@@ -98,7 +106,7 @@ button.addEventListener('click', (e) => {
 		confirmCode(round.code).then((confirmed) => {
 			if (confirmed) {
 				saveRound(round).then((done) => {
-					alert(`Saved round ${round.code}!`);
+					vex.dialog.alert(`Saved round ${round.code}!`);
 				}).catch(console.error);
 			}
 		}).catch(console.error);

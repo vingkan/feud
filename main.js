@@ -99,18 +99,20 @@ function initRound(round) {
 	});
 }
 
-let code = prompt('Enter a round code.');
-if (code) {
-	db.ref(`rounds/${code}`).once('value', (snap) => {
-		let round = snap.val();
-		if (round) {
-			initRound(round, {
-				maxAnswers: 10,
-				splitAt: 5
-			});
+vex.dialog.prompt({
+	message: 'Enter a round code.',
+	callback: (code) => {
+		if (code) {
+			db.ref(`rounds/${code}`).once('value', (snap) => {
+				let round = snap.val();
+				if (round) {
+					initRound(round, {
+						maxAnswers: 10,
+						splitAt: 5
+					});
+				}
+			}).catch(console.error);
 		}
-	}).catch(console.error);
-}
-
-
+	}
+});
 

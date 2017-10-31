@@ -8,6 +8,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+	<script type="text/javascript" src="./vex/vex.combined.min.js"></script>
+	<script type="text/javascript">vex.defaultOptions.className = 'vex-theme-plain';</script>
+	<link rel="stylesheet" type="text/css" href="./vex/vex.css">
+	<link rel="stylesheet" type="text/css" href="./vex/vex-theme-plain.css">
     <style type="text/css">
 
     	.is-vertically-centered {
@@ -36,6 +40,10 @@
     		margin-left: 5px;
     		margin-right: 5px;
     	}
+
+		.vex.vex-theme-plain .vex-dialog-button.vex-dialog-button-primary {
+			background: #23d160;
+		}
     	
     </style>
 </head>
@@ -44,7 +52,7 @@
 	<section class="section">
 		<div class="container">
 			<div class="content">
-				<h1 class="title is-1 has-text-centered">Add Round</h1>
+				<h1 class="title is-1 has-text-centered">Edit Round</h1>
 				<label class="label">
 					<h2 class="title is-4">Code</h2>
 					<input id="code" class="input" type="text">
@@ -60,8 +68,8 @@
 				<button id="save" class="button is-success is-medium">Save</button>
 			</div>
 			<div class="field is-grouped is-grouped-right">
-				<button id="load" class="button is-outlined is-primary">Load Round</button>
-				<a href="./index.html" class="button is-primary">Play Game</a>
+				<button id="load" class="button is-outlined is-success">Load Round</button>
+				<a href="./index.html" class="button is-success">Play Game</a>
 			</div>
 		</div>
 	</section>
