@@ -14,7 +14,7 @@ let question = document.getElementById('question');
 let answers = document.getElementById('answers');
 
 function showError(error) {
-	console.error(error);
+	alert(error);
 }
 
 function rawToAnswers(raw) {
@@ -46,12 +46,11 @@ function confirmCode(code) {
 }
 
 function saveRound(round) {
-	console.log(round);
+	return db.ref(`rounds/${round.code}`).set(round);
 }
 
 let button = document.getElementById('save');
 button.addEventListener('click', (e) => {
-	console.log('clicked')
 	if (!code.value) {
 		showError(`No round code given.`);
 	} else if (!question.value) {
@@ -59,7 +58,6 @@ button.addEventListener('click', (e) => {
 	} else if (!answers.value) {
 		showError(`No round answers given.`);
 	} else {
-		console.log('ready')
 		let round = {
 			code: code.value,
 			question: question.value,
@@ -67,7 +65,9 @@ button.addEventListener('click', (e) => {
 		}
 		confirmCode(round.code).then((confirmed) => {
 			if (confirmed) {
-				saveRound(round);
+				saveRound(round).then((done) => {
+					alert(`Saved round ${round.code}!`);
+				}).catch(console.error);
 			}
 		}).catch(console.error);
 	}
