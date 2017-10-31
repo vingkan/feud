@@ -14,12 +14,21 @@ let tbody = document.getElementById('tbody');
 db.ref(`rounds`).on('value', (snap) => {
 	let val = snap.val() || {};
 	let html = ``;
-	for (let code in val) {
-		let round = val[code] || {};
+	Object.keys(val).map((key) => {
+		let round = val[key];
+		round.points = round.answers.reduce((sum, a) => {return sum + a.score}, 0);
+		return round;
+	}).sort((a, b) => {
+		if (b.points === a.points) {
+			return b.answers.length - a.answers.length;
+		} else {
+			return b.points - a.points;
+		}
+	}).forEach((round) => {
 		let row = `
 			<tr>
 				<td>${round.question}</td>
-				<td>${round.answers.reduce((sum, a) => {return sum + a.score}, 0)}</td>
+				<td>${round.points}</td>
 				<td>${round.answers.length}</td>
 				<td>
 					<a href="./index.html?code=${round.code}" class="button is-success is-outlined is-disabled">${round.code}</a>
@@ -27,6 +36,6 @@ db.ref(`rounds`).on('value', (snap) => {
 			</tr>
 		`;
 		html += row;
-	}
+	});
 	tbody.innerHTML = html;
-})
+});
