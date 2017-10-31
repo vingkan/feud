@@ -9,9 +9,9 @@ let config = {
 let FirebaseApp = firebase.initializeApp(config);
 let db = FirebaseApp.database();
 
-let code = document.getElementById('code');
-let question = document.getElementById('question');
-let answers = document.getElementById('answers');
+let codeInput = document.getElementById('code');
+let questionInput = document.getElementById('question');
+let answersInput = document.getElementById('answers');
 
 function showError(error) {
 	alert(error);
@@ -25,6 +25,13 @@ function rawToAnswers(raw) {
 			score: parseInt(parts[1], 10)
 		}
 	});
+}
+
+function answersToRaw(list) {
+	return list.map((r) => {
+		let line = [r.answer, r.score + ''].join('\t');
+		return line;
+	}).join('\n');
 }
 
 function confirmCode(code) {
@@ -49,19 +56,44 @@ function saveRound(round) {
 	return db.ref(`rounds/${round.code}`).set(round);
 }
 
+function getRound(code) {
+	return new Promise((resolve, reject) => {
+		db.ref(`rounds/${code}`).once('value', (snap) => {
+			let val = snap.val();
+			if (val) {
+				resolve(val);
+			} else {
+				reject(`No data at: rounds/${round.code}`);
+			}
+		}).catch(reject);
+	});
+}
+
+let load = document.getElementById('load');
+load.addEventListener('click', (e) => {
+	let code = prompt('Enter a round code.');
+	if (code) {
+		getRound(code).then((round) => {
+			codeInput.value = code;
+			questionInput.value = round.question;
+			answersInput.value = answersToRaw(round.answers);
+		}).catch(console.error);
+	}
+});
+
 let button = document.getElementById('save');
 button.addEventListener('click', (e) => {
-	if (!code.value) {
+	if (!codeInput.value) {
 		showError(`No round code given.`);
-	} else if (!question.value) {
+	} else if (!questionInput.value) {
 		showError(`No round question given.`);
-	} else if (!answers.value) {
+	} else if (!answersInput.value) {
 		showError(`No round answers given.`);
 	} else {
 		let round = {
-			code: code.value,
-			question: question.value,
-			answers: rawToAnswers(answers.value || '')
+			code: codeInput.value,
+			question: questionInput.value,
+			answers: rawToAnswers(answersInput.value || '')
 		}
 		confirmCode(round.code).then((confirmed) => {
 			if (confirmed) {

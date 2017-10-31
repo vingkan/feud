@@ -41,6 +41,11 @@
     	.section {
     		padding: 1.5rem !important;
     	}
+
+    	.is-grouped .button {
+    		margin-left: 5px;
+    		margin-right: 5px;
+    	}
     	
     </style>
 </head>
@@ -56,15 +61,17 @@
 					</div>
 					<div class="tile is-4"></div>
 				</div>
-				<h1 id="question" class="title is-1">Name something everyone does.</h1>
+				<h1 id="question" class="title is-1">Get a round code and reload!</h1>
 			</div>
 			<div id="board" class="tile is-ancestor is-horizontal"></div>
 			<div class="field is-grouped is-grouped-right">
-				<span id="reveal" class="button is-outlined is-danger">Reveal Answers</span>
+				<button id="reveal" class="button is-outlined is-danger">Reveal Answers</button>
+				<a href="./edit.html" class="button is-outlined is-primary">Add Rounds</a>
 			</div>
 		</div>
 	</section>
 
+	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
 	<script type="text/javascript" src="./main.js"></script>
 
 </body>

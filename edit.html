@@ -31,6 +31,11 @@
     	.label .title {
     		margin-bottom: 0.5em;
     	}
+
+    	.is-grouped .button {
+    		margin-left: 5px;
+    		margin-right: 5px;
+    	}
     	
     </style>
 </head>
@@ -39,7 +44,7 @@
 	<section class="section">
 		<div class="container">
 			<div class="content">
-				<h1 class="title is-1 has-text-centered">Add Feud Round</h1>
+				<h1 class="title is-1 has-text-centered">Add Round</h1>
 				<label class="label">
 					<h2 class="title is-4">Code</h2>
 					<input id="code" class="input" type="text">
@@ -53,6 +58,10 @@
 					<textarea id="answers" class="textarea" rows="12"></textarea>
 				</label>
 				<button id="save" class="button is-success is-medium">Save</button>
+			</div>
+			<div class="field is-grouped is-grouped-right">
+				<button id="load" class="button is-outlined is-primary">Load Round</button>
+				<a href="./index.html" class="button is-primary">Play Game</a>
 			</div>
 		</div>
 	</section>

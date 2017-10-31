@@ -1,3 +1,14 @@
+let config = {
+	apiKey: "AIzaSyCilKAuu-_n20WUwgE8cYpWQBFgtJi113o",
+	authDomain: "feud-9002e.firebaseapp.com",
+	databaseURL: "https://feud-9002e.firebaseio.com",
+	projectId: "feud-9002e",
+	storageBucket: "",
+	messagingSenderId: "832727110519"
+};
+let FirebaseApp = firebase.initializeApp(config);
+let db = FirebaseApp.database();
+
 function getAnswersHTML(list, inopt) {
 	let opts = inopt || {};
 	let splitPoint = opts.splitAt || 4;
@@ -88,38 +99,18 @@ function initRound(round) {
 	});
 }
 
-let question = `Name a restaurant that failed a food inspection this year.`;
-let answers = `
-SUBWAY	52
-DUNKIN DONUTS	20
-MCDONALD'S	16
-POTBELLY SANDWICH WORKS	9
-BURGER KING	8
-POPEYES	7
-WENDY'S	7
-MCDONALDS	7
-CHINA CAFE	7
-LAS ISLAS MARIAS	7
-HAROLD'S CHICKEN SHACK	6
-FRESHII	6
-`.trim().split('\n').map((line) => {
-	let parts = line.split('\t');
-	return {
-		answer: parts[0],
-		score: parseInt(parts[1], 10)
-	}
-});
-
-console.log(answers);
-
-initRound({
-	question: question,
-	answers: answers
-}, {
-	maxAnswers: 10,
-	splitAt: 5
-});
-
+let code = prompt('Enter a round code.');
+if (code) {
+	db.ref(`rounds/${code}`).once('value', (snap) => {
+		let round = snap.val();
+		if (round) {
+			initRound(round, {
+				maxAnswers: 10,
+				splitAt: 5
+			});
+		}
+	}).catch(console.error);
+}
 
 
 
