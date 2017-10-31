@@ -28,29 +28,19 @@
     		font-weight: bold !important;
     	}
 
-    	.is-answer:hover {
-    		cursor: pointer;
-    	}
-
-    	#score {
-    		text-align: center;
-    		width: 100%;
-    	}
-
-    	#question {
-    		margin-top: 0;
-    		margin-bottom: 0.75em;
-    	}
-
     	.section {
     		padding: 1.5rem !important;
+    	}
+
+    	.label .title {
+    		margin-bottom: 0.5em;
     	}
 
     	.is-grouped .button {
     		margin-left: 5px;
     		margin-right: 5px;
     	}
-    	
+
 		.vex.vex-theme-plain .vex-dialog-button.vex-dialog-button-primary {
 			background: #23d160;
 		}
@@ -61,27 +51,29 @@
 
 	<section class="section">
 		<div class="container">
-			<div class="content has-text-centered">
-				<div class="tile is-parent">
-					<div class="tile is-4"></div>
-					<div class="tile is-4 notification is-success">
-						<span id="score" class="title is-1">0</span>
-					</div>
-					<div class="tile is-4"></div>
-				</div>
-				<h1 id="question" class="title is-1">Get a round code and reload!</h1>
+			<div class="content">
+				<h1 class="title is-1 has-text-centered">All Rounds</h1>
+				<table class="table is-fullwidth is-hoverable is-striped">
+					<thead>
+						<tr>
+							<th>Question</th>
+							<th>Points</th>
+							<th>Answers</th>
+							<th>Code</th>
+						</tr>
+					</thead>
+					<tbody id="tbody"></tbody>
+				</table>
 			</div>
-			<div id="board" class="tile is-ancestor is-horizontal"></div>
 			<div class="field is-grouped is-grouped-right">
-				<button id="reveal" class="button is-outlined is-danger">Reveal Answers</button>
-				<a href="./edit.html" class="button is-outlined is-success">Edit Rounds</a>
-				<a href="./view.html" class="button is-outlined is-success">View All Rounds</a>
+				<a href="./edit.html" class="button is-outlined is-success">Edit Round</a>
+				<a href="./index.html" class="button is-success">Play Game</a>
 			</div>
 		</div>
 	</section>
 
 	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-	<script type="text/javascript" src="./main.js"></script>
+	<script type="text/javascript" src="./view.js"></script>
 
 </body>
 </html>

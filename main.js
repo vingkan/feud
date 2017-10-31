@@ -9,6 +9,19 @@ let config = {
 let FirebaseApp = firebase.initializeApp(config);
 let db = FirebaseApp.database();
 
+let params = getQueryParams(document.location.search);
+
+function getQueryParams(qs) {
+	qs = qs.split('+').join(' ');
+	var params = {},
+		tokens,
+		re = /[?&]?([^=]+)=([^&]*)/g;
+	while (tokens = re.exec(qs)) {
+		params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+	}
+	return params;
+}
+
 function getAnswersHTML(list, inopt) {
 	let opts = inopt || {};
 	let splitPoint = opts.splitAt || 4;
@@ -99,20 +112,27 @@ function initRound(round) {
 	});
 }
 
-vex.dialog.prompt({
-	message: 'Enter a round code.',
-	callback: (code) => {
-		if (code) {
-			db.ref(`rounds/${code}`).once('value', (snap) => {
-				let round = snap.val();
-				if (round) {
-					initRound(round, {
-						maxAnswers: 10,
-						splitAt: 5
-					});
-				}
-			}).catch(console.error);
+function startGameWithCode(code) {
+	db.ref(`rounds/${code}`).once('value', (snap) => {
+		let round = snap.val();
+		if (round) {
+			initRound(round, {
+				maxAnswers: 10,
+				splitAt: 5
+			});
 		}
-	}
-});
+	}).catch(console.error);
+}
 
+if (params.code) {
+	startGameWithCode(params.code);
+} else {
+	vex.dialog.prompt({
+		message: 'Enter a round code.',
+		callback: (code) => {
+			if (code) {
+				startGameWithCode(code);
+			}
+		}
+	});
+}
