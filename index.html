@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feud</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+    <style type="text/css">
+
+    	.is-vertically-centered {
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+    	}
+
+    	.tile.title {
+    		margin-bottom: 0 !important;
+    	}
+
+    	.title {
+    		font-weight: bold !important;
+    	}
+
+    	.is-answer:hover {
+    		cursor: pointer;
+    	}
+
+    	#score {
+    		text-align: center;
+    		width: 100%;
+    	}
+
+    	#question {
+    		margin-top: 0;
+    		margin-bottom: 0.75em;
+    	}
+
+    	.section {
+    		padding: 1.5rem !important;
+    	}
+
+    </style>
+</head>
+<body>
+
+	<section class="section">
+		<div class="container">
+			<div class="content has-text-centered">
+				<div class="tile is-parent">
+					<div class="tile is-4"></div>
+					<div class="tile is-4 notification is-success">
+						<span id="score" class="title is-1">0</span>
+					</div>
+					<div class="tile is-4"></div>
+				</div>
+				<h1 id="question" class="subtitle is-1">Name something everyone does.</h1>
+			</div>
+			<div id="board" class="tile is-ancestor is-horizontal"></div>
+		</div>
+	</section>
+
+	<script type="text/javascript" src="./main.js"></script>
+
+</body>
+</html>
