@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feud</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+	<script type="text/javascript" src="./vex/vex.combined.min.js"></script>
+	<script type="text/javascript">vex.defaultOptions.className = 'vex-theme-plain';</script>
+	<link rel="stylesheet" type="text/css" href="./vex/vex.css">
+	<link rel="stylesheet" type="text/css" href="./vex/vex-theme-plain.css">
+    <style type="text/css">
+
+    	.is-vertically-centered {
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+    	}
+
+    	.tile.title {
+    		margin-bottom: 0 !important;
+    	}
+
+    	.title {
+    		font-weight: bold !important;
+    	}
+
+    	.section {
+    		padding: 1.5rem !important;
+    	}
+
+    	.label .title {
+    		margin-bottom: 0.5em;
+    	}
+
+    	.is-grouped .button {
+    		margin-left: 5px;
+    		margin-right: 5px;
+    	}
+
+		.vex.vex-theme-plain .vex-dialog-button.vex-dialog-button-primary {
+			background: #23d160;
+		}
+    	
+    </style>
+</head>
+<body>
+
+	<section class="section">
+		<div class="container">
+			<div class="content">
+				<h1 class="title is-1 has-text-centered">All Rounds</h1>
+				<table id="table" class="table is-fullwidth is-hoverable is-striped"></table>
+			</div>
+			<div class="field is-grouped is-grouped-right">
+				<a href="./edit.html" class="button is-outlined is-success">Edit Round</a>
+				<a href="./index.html" class="button is-success">Play Game</a>
+			</div>
+		</div>
+	</section>
+
+	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+	<script type="text/javascript" src="./view.js"></script>
+
+</body>
+</html>
