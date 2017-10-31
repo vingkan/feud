@@ -24,22 +24,12 @@
     		font-weight: bold !important;
     	}
 
-    	.is-answer:hover {
-    		cursor: pointer;
-    	}
-
-    	#score {
-    		text-align: center;
-    		width: 100%;
-    	}
-
-    	#question {
-    		margin-top: 0;
-    		margin-bottom: 0.75em;
-    	}
-
     	.section {
     		padding: 1.5rem !important;
+    	}
+
+    	.label .title {
+    		margin-bottom: 0.5em;
     	}
     	
     </style>
@@ -48,24 +38,27 @@
 
 	<section class="section">
 		<div class="container">
-			<div class="content has-text-centered">
-				<div class="tile is-parent">
-					<div class="tile is-4"></div>
-					<div class="tile is-4 notification is-success">
-						<span id="score" class="title is-1">0</span>
-					</div>
-					<div class="tile is-4"></div>
-				</div>
-				<h1 id="question" class="title is-1">Name something everyone does.</h1>
-			</div>
-			<div id="board" class="tile is-ancestor is-horizontal"></div>
-			<div class="field is-grouped is-grouped-right">
-				<span id="reveal" class="button is-outlined is-danger">Reveal Answers</span>
+			<div class="content">
+				<h1 class="title is-1 has-text-centered">Add Feud Round</h1>
+				<label class="label">
+					<h2 class="title is-4">Code</h2>
+					<input id="code" class="input" type="text">
+				</label>
+				<label class="label">
+					<h2 class="title is-4">Question</h2>
+					<input id="question" class="input" type="text">
+				</label>
+				<label class="label">
+					<h2 class="title is-4">Answers</h2>
+					<textarea id="answers" class="textarea" rows="12"></textarea>
+				</label>
+				<button id="save" class="button is-success is-medium">Save</button>
 			</div>
 		</div>
 	</section>
 
-	<script type="text/javascript" src="./main.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+	<script type="text/javascript" src="./edit.js"></script>
 
 </body>
 </html>

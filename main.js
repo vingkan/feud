@@ -56,7 +56,6 @@ function flipAnswer(div) {
 	answerSpan.innerText = answer;
 	let score = scoreSpan.dataset.score;
 	scoreSpan.innerText = score;
-	div.
 	return parseInt(score, 10);
 }
 
