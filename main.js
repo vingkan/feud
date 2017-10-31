@@ -45,6 +45,28 @@ function getAnswersHTML(list, inopt) {
 let header = document.getElementById('question');
 let board = document.getElementById('board');
 let counter = document.getElementById('score');
+let reveal = document.getElementById('reveal');
+
+function flipAnswer(div) {
+	let answerSpan = div.querySelector('[data-answer]');
+	let scoreSpan = div.querySelector('[data-score]');
+	div.classList.remove('is-warning');
+	div.classList.add('is-success');
+	let answer = answerSpan.dataset.answer;
+	answerSpan.innerText = answer;
+	let score = scoreSpan.dataset.score;
+	scoreSpan.innerText = score;
+	div.
+	return parseInt(score, 10);
+}
+
+function flipAll() {
+	let divs = board.querySelectorAll('.is-answer');
+	let sum = Array.from(divs).reduce((agg, div) => {
+		return agg + flipAnswer(div);
+	}, 0);
+	counter.innerText = sum;
+}
 
 function initRound(round) {
 	let html = getAnswersHTML(round.answers, round.display);
@@ -53,21 +75,17 @@ function initRound(round) {
 	let totalScore = 0;
 	let shownMap = {};
 	Array.from(board.querySelectorAll('.is-answer')).forEach((div, idx) => {
-		let answerSpan = div.querySelector('[data-answer]');
-		let scoreSpan = div.querySelector('[data-score]');
 		div.addEventListener('click', (e) => {
 			if (!(idx in shownMap)) {
 				shownMap[idx] = true;
-				div.classList.remove('is-warning');
-				div.classList.add('is-success');
-				let answer = answerSpan.dataset.answer;
-				answerSpan.innerText = answer;
-				let score = scoreSpan.dataset.score;
-				scoreSpan.innerText = score;
-				totalScore += parseInt(score, 10);
+				let score = flipAnswer(div);
+				totalScore += score;
 				counter.innerText = totalScore;
 			}
 		});
+	});
+	reveal.addEventListener('click', (e) => {
+		flipAll();
 	});
 }
 
